@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChiscoStore</title>
+    <link rel="icon" type="x-icon" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-5.3.0-alpha3-dist/css/bootstrap.css">
+    <style>
+        body {
+            padding-top: 56px; /* Height of the navbar */
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        #NavBar-Menu-container {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 56px; /* Height of the navbar */
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ..........................for navbar..................... -->
+    <nav class="navbar navbar-expand-lg bg-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html" style="color: white; font-size: 25px;"><strong>Mega</strong>News</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="About.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#relation">Relationship</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#tech">Technology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#enter">Entertainment</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="NavBar-Menu-container">
+        <div style="text-align: center; align-items: center;">
+            <a href="#lates" class="btn shadow">News</a>
+            <a href="#sport" class="btn shadow">Sports</a>
+            <a href="#healt" class="btn shadow">Health</a>
+            <a href="#educate" class="btn shadow">Education</a>
+            <a href="#award" class="btn shadow">MegaNews Awards</a>
+            <a href="#politic" class="btn shadow">Politics</a>
+            <a href="#buz" class="btn shadow">Business</a>
+            <a href="#colum" class="btn shadow">Columns</a>
+            <a href="#toons" class="btn shadow"> Cartoon</a>
+            <a href="AllMegaNews.html" class="btn shadow">ALL MegaNews</a>
+            <a href="#metr" class="btn  shadow ">Metro</a>
+            <a href="Audeo.html" class="btn shadow ">Audios</a>
+            <a href="#video" class="btn shadow ">Videos</a>
+        </div>
+    </div>
+
+    <a id="trend" style="font-size: larger; text-decoration: none; margin-top: 10px;" href="index.html">Back</a>
+
+    <h2 id="tre" style="margin-top: 20px;">Audio List</h2>
+
+    <input type="text" id="searchInput" placeholder="Search by title" oninput="searchProducts()" style="margin-bottom: 10px;">
+
+    <div id="jewelery" class="mt-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Audio</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- section for MegaNews Details -->
+    <div id="product-details" class="details" style="display:none;">
+        <button id="back-button" class="btn btn-secondary">Back</button>
+        <div id="details-content"></div>
+    </div>
+
+    <script>
+let currentPage = 1;
+const productsPerPage = 5;
+let allProducts = [];
+let filteredProducts = [];
+
+async function fetchData() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/video_audeo/');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        data.sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
+        allProducts = data.filter(product => product.vendor === "audeos");
+        filteredProducts = allProducts; // Initialize filteredProducts
+        displayProducts();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+function displayProducts() {
+    const productTableBody = document.getElementById('productTableBody');
+    productTableBody.innerHTML = '';
+
+    const start = (currentPage - 1) * productsPerPage;
+    const end = start + productsPerPage;
+    const productsToShow = filteredProducts.slice(start, end);
+
+    productsToShow.forEach((product, index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <th scope="row">${start + index + 1}</th>
+            <td>${product.title}</td>
+            <td>${new Date(product.date_added).toLocaleTimeString()}</td>
+            <td>
+                <audio controls>
+                    <source src="${product.audio}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </td>
+            <td><button class="details-button" data-product-id="${product.id}">View</button></td>
+        `;
+
+        row.querySelector('.details-button').addEventListener('click', () => displayProductDetails(product));
+        productTableBody.appendChild(row);
+    });
+
+    updatePaginationInfo();
+}
+
+function displayProductDetails(product) {
+    const productDetailsContainer = document.getElementById('product-details');
+    const detailsContent = document.getElementById('details-content');
+    const pagination = document.querySelector('.pagination');
+
+    detailsContent.innerHTML = `
+        <div style="text-align: center;">
+            <h3>${product.title}</h3>
+            <audio controls>
+                <source src="${product.audio}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <p>${product.body}</p>
+        </div>
+    `;
+
+    document.getElementById('jewelery').style.display = 'none';
+    document.getElementById('trend').style.display = 'none';
+    document.getElementById('tre').style.display = 'none';
+    productDetailsContainer.style.display = 'block';
+    if (pagination) {
+        pagination.classList.add('hidden');
+    }
+}
+
+document.getElementById('back-button').addEventListener('click', () => {
+    document.getElementById('product-details').style.display = 'none';
+    document.getElementById('jewelery').style.display = 'block';
+    document.querySelector('.pagination').classList.remove('hidden');
+});
+
+function updatePaginationInfo() {
+    const pageInfo = document.getElementById('pageInfo');
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+    document.getElementById('prevPage').disabled = currentPage === 1;
+    document.getElementById('nextPage').disabled = currentPage === totalPages;
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayProducts();
+    }
+}
+
+function nextPage() {
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayProducts();
+    }
+}
+
+function searchProducts() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    filteredProducts = allProducts.filter(product => product.title.toLowerCase().includes(query));
+    currentPage = 1; // Reset to the first page
+    displayProducts();
+}
+
+// Sticky NavBar-Menu-container
+window.onscroll = function() {
+    const navbar = document.querySelector('.navbar');
+    const navbarMenuContainer = document.getElementById('NavBar-Menu-container');
+    const navbarRect = navbar.getBoundingClientRect();
+    const navbarMenuRect = navbarMenuContainer.getBoundingClientRect();
+
+    if (window.scrollY >= navbarMenuRect.top) {
+        navbarMenuContainer.style.position = 'fixed';
+        navbarMenuContainer.style.top = `${navbarRect.height}px`;
+        navbarMenuContainer.style.width = '100%';
+        navbarMenuContainer.style.zIndex = '999';
+    } else {
+        navbarMenuContainer.style.position = 'static';
+        navbarMenuContainer.style.width = 'auto';
+    }
+}
+
+window.onload = fetchData;
+
+</script>
+</body>
+
+</html>

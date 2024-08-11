@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video list</title>
+    <link rel="icon" type="x-icon" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-5.3.0-alpha3-dist/css/bootstrap.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha384-DyZ88mC6Up2uqSse0N2Dq+2adKXXdR6suI6tvZp3zF5dfh2fjFDbiuYy5j0f1p4r" crossorigin="anonymous">
+    <style>
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+
+            /*  section for all*/
+            tr {
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+                /* padding: 10px; */
+            }
+
+            .date {
+                display: none;
+            }
+
+
+        }
+
+        
+      body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(7, 236, 53, 0.5)20%,  rgba(241, 241, 243, 0.5)50%, rgba(8, 231, 26, 0.5)10%), url("section-bg.jpg.webp");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        /* for navbar logo */
+        nav strong {
+            color: gold;
+            font-size: 40px;
+        }
+
+        /* for navbar item  */
+        .nav-item a {
+            color: #fff !important;
+            font-size: 18px;
+        }
+
+        .nav-item a:hover {
+            background-color: goldenrod;
+        }
+
+        /* For navbar sticky */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: black;
+        }
+
+
+        #jewelery {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+            margin: 0 auto;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .product {
+            width: 20rem;
+            margin: 1em;
+            border-radius: 5px;
+            padding: 2px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .product video {
+            margin: 0 auto;
+            justify-content: center;
+            width: 220px;
+            height: 80px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .details {
+            display: none;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 1250px;
+            margin: 20px auto;
+        }
+
+        .details video {
+            display: block;
+            margin: 0 auto;
+            width: 50%;
+            height: 10%;
+            margin-bottom: 20px;
+        }
+
+        #back-button {
+            display: block;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            font-size: 1em;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* share button section */
+        #share-buttons-container {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+        }
+
+        /* share button section */
+        #share-buttons-container button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 10px;
+        }
+
+        /* share button section */
+        #scroll-left,
+        #scroll-right {
+            cursor: pointer;
+            font-size: 32px;
+        }
+
+        /* function for search  */
+        #artistsList {
+            margin-top: 10px;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ..........................for navbar..................... -->
+    <nav class="navbar navbar-expand-lg bg-secondary">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="index.html"
+                style="color: white; font-size: 25px;"><strong>Mega</strong>News</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="About.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <a id="trend" style="font-size: larger; text-decoration: none; margin-top: 10px; margin-left: 20px;"
+        href="index.html">Back</a>
+
+    <h2 id="tre" style="margin-top: 20px; margin-left: 20px;">Video List</h2>
+
+    <input list="artistSuggestions" id="searchInput" placeholder="Search by title" oninput="searchProducts()"
+        style="margin-bottom: 10px; margin-left: 20px;">
+    <datalist id="artistSuggestions"></datalist>
+
+    <div id="jewelery" class="mt-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Artists</th>
+                    <th scope="col">album</th>
+                    <th class="date" scope="col">Date Created</th>
+                    <th scope="col">Videos</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+            </tbody>
+        </table>
+        <p id="noResultsMessage" style="display: none; color: red;">No artist match your search criteria.</p>
+    </div>
+
+    <!-- section for MegaNews Details -->
+    <div id="product-details" class="details">
+        <button id="back-button" class="btn btn-secondary">Back</button>
+        <div id="details-content"></div>
+
+        <div class="mt-5" id="scroll-left" onclick="scrollLeft()">
+            <p>Share to</p>
+        </div>
+        <div id="share-buttons-container">
+            <button onclick="shareToSocialMedia('facebook')"><img src="Logos/fb.png" class="rounded-circle"
+                    style="height: 35px"> <br> Facebook</button>
+            <button onclick="shareToSocialMedia('twitter')"><img src="Logos/Twitter.png" class="rounded-circle"
+                    style="height: 35px"> <br> Twitter</button>
+            <button onclick="shareToSocialMedia('whatsapp')"><img src="Logos/whatssap.png" class="rounded-circle"
+                    style="height: 35px"><br>Whatssap</button>
+            <button onclick="shareToSocialMedia('email')"><img src="Logos/E-mail.png" class="rounded-circle"
+                    style="height: 35px"><br>E-mail</button>
+            <button onclick="shareToSocialMedia('sms')"><img src="Logos/sms 1.png" class="rounded-circle"
+                    style="height: 35px"><br>SMS</button>
+            <button onclick="shareToSocialMedia('instagram')"><img src="Logos/instagram.png" class="rounded-circle"
+                    style="height: 35px"><br>Instagram</button>
+            <button onclick="shareToSocialMedia('tiktok')"><img src="Logos/TikTok.png" class="rounded-circle"
+                    style="height: 35px"><br>Tik-Tok</button>
+            <button onclick="shareToSocialMedia('messenger')"><img src="Logos/fb_messenger.png" class="rounded-circle"
+                    style="height: 35px"><br>Facebook <br> Messenger</button>
+            <button onclick="shareToSocialMedia('telegram')"><img src="Logos/Telegram.png" class="rounded-circle"
+                    style="height: 35px"><br>Telegram</button>
+            <button onclick="shareToSocialMedia('copy')"> <img src="Logos/copy 1.png" class="rounded-circle"
+                    style="height: 35px"><br> Copy link</button>
+            <button onclick="shareToSocialMedia('native')"><img src="Logos/other.png" class="rounded-circle"
+                    style="height: 35px"><br>More</button>
+        </div>
+        <div id="scroll-right" onclick="scrollRight()"></div>
+
+    </div>
+
+    <!-- section for Next and  Previous button -->
+    <div class="pagination">
+        <button id="prevPage" onclick="prevPage()">Previous</button>
+        <span id="pageInfo"></span>
+        <button id="nextPage" onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const productsPerPage = 10;
+        let allProducts = [];
+        let filteredProducts = [];
+
+        async function fetchData() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/video_audeo/');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                data.sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
+                allProducts = data.filter(product => product.vendor === "videos");
+                filteredProducts = allProducts; // Initialize filteredProducts
+                displayProducts();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // section for fetching first News........................................
+        function displayProducts() {
+            const productTableBody = document.getElementById('productTableBody');
+            productTableBody.innerHTML = '';
+
+            const start = (currentPage - 1) * productsPerPage;
+            const end = start + productsPerPage;
+            const productsToShow = filteredProducts.slice(start, end);
+
+            if (productsToShow.length === 0) {
+                document.getElementById('noResultsMessage').style.display = 'block';
+            } else {
+                document.getElementById('noResultsMessage').style.display = 'none';
+            }
+
+            productsToShow.forEach((product, index) => {
+                const row = document.createElement('tr');
+                row.className = 'product';
+
+                row.innerHTML = `
+                    <th scope="row">${start + index + 1}</th>
+                    <h4>${product.artist}</h4>
+                    <td>${product.title}</td>
+                    <td class="date">${new Date(product.date_added).toLocaleString()}</td>
+                    <td>
+                        <video controls width="320" height="80">
+                        <source src="${ product.video }" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    </td>
+                    <td><button class="details-button" data-product-id="${product.id}">View</button></td>
+                `;
+
+                row.querySelector('.details-button').addEventListener('click', () => displayProductDetails(product));
+                productTableBody.appendChild(row);
+            });
+
+            updatePaginationInfo();
+        }
+
+        // Section for first News Details
+        function displayProductDetails(product) {
+            const productDetailsContainer = document.getElementById('product-details');
+            const detailsContent = document.getElementById('details-content');
+            const pagination = document.querySelector('.pagination');
+
+            detailsContent.innerHTML = `
+                <div style="text-align: center;">
+                    <h3>${product.artist}</h3>
+                    <video controls width="320" height="240">
+                        <source src="${ product.video }" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+                        <h3>${product.title}</h3>
+                    <p>${product.body}</p>
+                </div>
+            `;
+
+            // Section to block or hide some function
+            document.getElementById('jewelery').style.display = 'none';
+            document.getElementById('trend').style.display = 'none';
+            document.getElementById('tre').style.display = 'none';
+            document.getElementById('searchInput').style.display = 'none';
+            productDetailsContainer.style.display = 'block';
+            if (pagination) {
+                pagination.classList.add('hidden');
+            }
+        }
+
+        // Section for Back button 
+        document.getElementById('back-button').addEventListener('click', () => {
+            document.getElementById('product-details').style.display = 'none';
+            document.getElementById('jewelery').style.display = 'block';
+            document.querySelector('.pagination').classList.remove('hidden');
+        });
+
+        function updatePaginationInfo() {
+            const pageInfo = document.getElementById('pageInfo');
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayProducts();
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayProducts();
+            }
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            filteredProducts = allProducts.filter(product => product.title.toLowerCase().includes(query));
+            currentPage = 1; // Reset to the first page
+            displayProducts();
+
+            // Display matching artist names in the datalist
+            const artistNames = [...new Set(allProducts.filter(product => product.title.toLowerCase().includes(query)).map(product => product.title))];
+            const artistSuggestions = document.getElementById('artistSuggestions');
+            artistSuggestions.innerHTML = '';
+            artistNames.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                artistSuggestions.appendChild(option);
+            });
+        }
+
+        // ...............................................end.................................
+
+
+        // SECTION FOR COPY LINKS
+        function shareToSocialMedia(platform) {
+            const url = window.location.href;
+            const title = document.title;
+            let shareUrl = '';
+
+            switch (platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(title + " " + url)}`;
+                    break;
+                case 'email':
+                    shareUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
+                    break;
+                case 'sms':
+                    shareUrl = `sms:?body=${encodeURIComponent(title + " " + url)}`;
+                    break;
+                case 'instagram':
+                    shareUrl = `https://www.instagram.com/`;
+                    break;
+                case 'tiktok':
+                    shareUrl = `https://www.tiktok.com/`;
+                    break;
+                case 'messenger':
+                    shareUrl = `fb-messenger://share?link=${encodeURIComponent(url)}&app_id=YOUR_APP_ID`; // replace YOUR_APP_ID with your Facebook app ID
+                    break;
+                case 'telegram':
+                    shareUrl = `https://api.telegram.com/send?text=${encodeURIComponent(title + " " + url)}`;
+                    break;
+                case 'copylink':
+                case 'copy':
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(url).then(() => {
+                            alert('Link copied to clipboard!');
+                        }).catch(err => {
+                            console.error('Failed to copy link: ', err);
+                        });
+                    } else {
+                        fallbackCopyTextToClipboard(url);
+                    }
+                    return;
+                case 'native':
+                    if (navigator.share) {
+                        navigator.share({
+                            title: title,
+                            text: title,
+                            url: url
+                        }).then(() => {
+                            console.log('Successfully shared');
+                        }).catch((error) => {
+                            console.error('Error sharing', error);
+                        });
+                    } else {
+                        alert('Web Share API is not supported in your browser.');
+                    }
+                    return;
+                case 'chrome':
+                case 'firefox':
+                case 'edge':
+                case 'safari':
+                    alert(`To share this link on ${platform.charAt(0).toUpperCase() + platform.slice(1)}, please use your browser's sharing options.`);
+                    return;
+                default:
+                    console.log('Unknown platform');
+                    return;
+            }
+
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                alert('Link copied to clipboard!');
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                alert('Link copied to clipboard!');
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+
+
+        function scrollLeft() {
+            const container = document.getElementById('share-buttons-container');
+            container.scrollBy({
+                left: -100,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollRight() {
+            const container = document.getElementById('share-buttons-container');
+            container.scrollBy({
+                left: 100,
+                behavior: 'smooth'
+            });
+        }
+
+
+
+        
+                         // section for zoom....................................................................
+                         function toggleZoom(element) {
+                element.classList.toggle('zoom');
+            }
+            // Sticky back-button-container
+            window.onscroll = function () {
+                const navbar = document.querySelector('.navbar');
+                const navbarMenuContainer = document.getElementById('back-button');
+                const navbarRect = navbar.getBoundingClientRect();
+                const navbarMenuRect = navbarMenuContainer.getBoundingClientRect();
+
+                if (window.scrollY >= navbarMenuRect.top) {
+                    navbarMenuContainer.style.position = 'fixed';
+                    navbarMenuContainer.style.top = `${navbarRect.height}px`;
+                    // navbarMenuContainer.style.width = '10%';
+                    navbarMenuContainer.style.zIndex = '999';
+                } else {
+                    navbarMenuContainer.style.position = 'static';
+                    navbarMenuContainer.style.width = 'auto';
+                }
+            }
+
+
+        window.onload = fetchData;
+    </script>
+</body>
+
+</html>

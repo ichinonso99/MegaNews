@@ -1,0 +1,391 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+  /* This is for footer */
+  .footer {
+    display: block !important;
+    text-align: center;
+    font-size: 20px;
+  }
+  #displayIn_3 {
+    display: block !important;
+    text-align: center;
+  }
+
+
+}
+
+body {
+  padding-top: 56px; /* Height of the navbar */
+}
+.navbar1 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.about-section {
+  background: linear-gradient(rgba(55, 120, 241, 0.5)50%, rgba(55, 120, 241, 0.5)50%), url("images/image3.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Add margin to the top of the container */
+.container {
+  margin-top: 15px;
+}
+
+/* Style for the product container */
+.product-container {
+  border: 1px solid #ccc;
+  padding: 2px;
+  margin: auto;
+  width: 350px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+/* Style for error messages */
+.error {
+  margin: 20px;
+  font-size: 18px;
+  color: red;
+  text-align: center;
+}
+
+/* Style for detail elements */
+.details {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Class to hide elements */
+.hidden {
+  display: none;
+}
+
+/* Style for images in the product details */
+#product-details img {
+  justify-content: center;
+  margin: auto;
+  width: 50%;
+}
+
+/* Style for the News containers */
+#trending,
+#politics,
+#metro,
+#entertainment,
+#business,
+#technology,
+#education,
+#MegaNewsAward {
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+
+/* Style for the News containers */
+#health,
+#sports,
+#relationships{
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 10px;
+  /* margin-bottom: 30px; */
+}
+
+/* Style for individual product elements */
+.product {
+  width: 22rem;
+  margin: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 2px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for product images */
+.product img {
+  margin: 0 auto;
+  justify-content: center;
+  width: 240px;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+/* Style for the modal Details content */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Style for images inside the modal  Details*/
+.modal-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  margin: auto;
+}
+
+
+/* for latest News slide up ........................................latest only   */
+#Latest-slide-container {
+  display: flex;
+  /* background-color: black; */
+  flex-direction: column;
+  overflow-y: auto;
+  height: 80vh;
+  padding: 10px;
+}
+
+#latest {
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.product-containers {
+  width: 20rem;
+  margin: 4px;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.product-containers img {
+  width: 19rem;
+  margin: auto;
+  height: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.product-containers h6 {
+  padding: 10px;
+}
+
+/* ......................................End................................. */
+
+
+/* for columns News slide up ........................................columns only   */
+
+#columns {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.columnsnews {
+  width: 16rem;
+  margin: -4px;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.columnsnews img {
+    width: 15rem;
+    margin: auto;
+    height: 200px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .columnsnews h6, p {
+    padding: 10px;
+  }
+
+  
+#columns-News-container {
+  display: flex;
+  overflow-x: auto;
+}
+  /* ......................................End................................. */
+
+/* for videos News slide up ........................................videos only   */
+#videos {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  /* box-shadow: 0px 0px 5px; */
+}
+
+.videosList {
+  width: 16rem;
+  margin: -4px;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.videosList video {
+  width: 15rem;
+  margin: auto;
+  height: 200px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .videosList h6, p {
+    padding: 10px;
+  }
+  
+#videos-News-container {
+  display: flex;
+  overflow-x: auto;
+} 
+  /* ......................................End................................. */
+
+ /* .................... section for cartoon..................... */
+#cartoon {
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+/* Style for individual product elements */
+.cartoons_container {
+  width: 15rem;
+  margin: 2px;
+  padding: 2px;
+  background-color: #fff;
+}
+
+/* Style for product images */
+.cartoons_container img {
+  margin: 0 auto;
+  justify-content: center;
+  width: 240px;
+  height: 200px;
+  margin-bottom: 5px;
+}
+/* ......................................End................................. */
+
+
+/* for advertizement News up ........................................advertizement only   */
+/* #advert2   */
+#advert11,
+#advert10,
+#advert9,
+#advert8,
+#advert7,
+#advert6,
+#advert5,
+#advert4,
+#advert3,
+#advert2,
+#advert1 {
+  background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  
+  /* Style for individual product elements */
+  .advertizement {
+    width: 22rem;
+    margin: auto;
+    margin: 2px;
+    padding: 2px;
+    background-color: #fff;
+  }
+  
+  /* Style for product images */
+  .advertizement img {
+    margin: 0 auto;
+    justify-content: center;
+    width: 350px;
+    height: 200px;
+    margin-bottom: 5px;
+  }
+
+  /* ......................................End............advertizement..................... */
+  
+  
+  
+  /* for advertizement News up ........................................zoom only   */
+  .zoom-container {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .zoom-container img {
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(1);
+  }
+  to {
+        transform: scale(2); /* Adjust the scale factor as needed */
+    }
+  }
+
+  @keyframes zoomOut {
+    from {
+      transform: scale(2); /* Adjust the scale factor as needed */
+    }
+    to {
+      transform: scale(1);
+      }
+    }
+
+    .zoom-container.zoom img {
+      animation: zoomIn 0.5s forwards;
+    }
+    
+.zoom-container:not(.zoom) img {
+  animation: zoomOut 0.5s forwards;
+}
+
+.zoom-overlay {
+  position: absolute;
+  top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.zoom-container.zoom .zoom-overlay {
+  display: flex;
+}
+/* ......................................End............zoom..................... */
+
